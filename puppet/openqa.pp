@@ -71,12 +71,12 @@ class openqa {
         }
     }
 #   make sure, worker and apache2 service are running
-    service { [ 'apache2', 'openqa-worker@1' ]:
-                ensure => running,
-                enable => true,
-                provider => systemd,
-                subscribe => File['openqa_conf'];
-    }
+#    service { [ 'apache2', 'openqa-worker@1' ]:
+#                ensure => running,
+#                enable => true,
+#                provider => systemd,
+#                subscribe => File['openqa_conf'];
+#    }
 }
 
 #include openqa

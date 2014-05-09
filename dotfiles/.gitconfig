@@ -1,0 +1,9 @@
+[user]
+	email = xdzhang@suse.com
+	name = Xudong Zhang
+[credential]
+	helper = cache --timeout=3600
+[alias]
+	st = status
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen (%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    ch = checkout

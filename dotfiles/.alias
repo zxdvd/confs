@@ -1,0 +1,21 @@
+alias httpserver='droopy --dl -m '\''Hi, this is Xudong (xdzhang@suse.com).'\'' '
+alias term='gnome-terminal'
+alias ff='firefox'
+alias kvm-openqa='qemu-kvm -m 1024 -net user -net nic,model=virtio -serial file:serial0 -soundhw ac97 -vga cirrus -smp 1 -enable-kvm'
+alias j='jobs -l'
+alias vi=vim
+alias mount-view='mount | column -t'
+alias xprop-wm='xprop _NET_WM_PID'
+
+alias pd='pushd '
+alias pd-='popd'
+alias pd--='popd -2'
+alias pd---='popd -3'
+alias d='dirs -v'
+alias b='pushd +1'
+alias f='pushd -0'
+
+alias cp='rsync -avhP'
+
+alias openqa-web='/usr/bin/perl -w  /usr/share/openqa/script/openqa daemon -m development'
+alias openqa-work='worker --host localhost:9526 --instance 1 --verbose'
