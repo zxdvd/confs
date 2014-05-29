@@ -1,0 +1,13 @@
+alias yifan Yifan Jiang <yfjiang@suse.com>
+alias sunny Yan Sun <ysun@suse.com>
+alias nick Nick Wang <nwang@suse.com>
+alias sero Yong Sun <yosun@suse.com>
+alias xiaojun Xiaojun Jin <xjin@suse.com>
+alias chenzi ChenZi Cao <chcao@novell.com>
+alias weihua Wei Hua Du <whdu@suse.com>
+alias ben        Ben Chou <bchou@suse.com>
+alias xiyuan Xiyuan Liu <xyliu@suse.com>
+alias yue   Yue Chen    <ychen@suse.com>
+
+alias APAC-1    ben,sero,sunny,weihua,xiaojun,xiyuan,yifan,yue
+alias zgroup-apac-1 QA APAC I <DL-BEJ-OPS-SLED-QA@novell.com>
