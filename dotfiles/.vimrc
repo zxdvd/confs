@@ -5,6 +5,9 @@ set cursorline
 set cursorcolumn
 set hlsearch
 
+" enable mouse scroll
+set mouse=a
+
 " tab setting
 set	smartindent
 set	tabstop=4
