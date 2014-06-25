@@ -1,8 +1,10 @@
 #! /bin/bash
 
-# this script will mount all isos of a folder to /tmp/mount/1,2,3,4
-# and then start python server (python2.7 -m SimpleHTTPServer)
-# the server port is increased from 8101
+# This script will find all ISOs of a folder then mount these ISOs to 
+# /tmp/mount/1,2,3,4...
+# And it will start python server (python2.7 -m SimpleHTTPServer) at all these
+# mounted directories. The server port is increased from 8101
+# So you get online repos of these ISOs via http://localhost:810X
 
 function usage {
     echo "Usage: mount-iso [OPTIONS] PATH"
