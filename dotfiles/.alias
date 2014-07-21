@@ -2,6 +2,7 @@ alias httpserver='python3 -m http.server '
 alias term='gnome-terminal'
 alias ff='firefox'
 alias kvm-openqa='qemu-kvm -m 1024 -net user -net nic,model=virtio -soundhw ac97 -smp 1 -enable-kvm'
+alias kvm-bridge='qemu-kvm -m 1024 -net nic,model=virtio -net bridge,br=br0 -soundhw ac97 -enable-kvm'
 alias j='jobs -l'
 alias vi=vim
 alias mount-view='mount | column -t'

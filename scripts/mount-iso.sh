@@ -41,7 +41,7 @@ while [ $# -gt 0 ] ; do
     esac
 done
 
-dir=$1
+[ $1 ] && dir=$1 || dir=/dev/null
 a=1
 port=8100
 for isofile in $(find $dir -type f -iname '*.iso')

@@ -19,9 +19,11 @@ set ignorecase
 set smartcase
 
 " mutt setting
-" to limit the width of text to 72 characters
-autocmd BufRead /tmp/mutt-* set tw=72
+" to limit the width of text to 80 characters
+autocmd BufRead /tmp/mutt-* set tw=80
 autocmd BufRead /tmp/mutt-* set spell spelllang=en_us
+" markdown setting
+autocmd BufRead,BufNewFile *.md set filetype=markdown spell spelllang=en_us tw=80
 
 map ,e :e <C-R>=expand("%:h") . "/" <CR>
 
