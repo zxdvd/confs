@@ -1,3 +1,5 @@
+" syntax highlighting
+syntax on
 " enable number
 set nu
 " highlight current line, column
