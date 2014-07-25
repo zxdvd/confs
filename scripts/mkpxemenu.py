@@ -4,29 +4,23 @@ import re, os.path
 from subprocess import Popen, PIPE
 
 
-def getslpsrv():
-    """Get service:install.suse:nfs of 147.2.207.1"""
+def getslpsrv(cmd, filter_out):
+    """Get a service list from a slp server.
+    cmd is the command list to Popen, like ['slptool', 'findsrvs',...]
+    filter_out is a list of filters ,like ['sled', 'sles']
+    """
 
     output = []
+    def str_filter():
+        return list(filter(lambda s: s in str(line).lower(), filter_out))
+
     try:
-        p = Popen(["slptool", "unicastfindsrvs", "147.2.207.1", "service:install.suse:nfs"], stdout=PIPE)
+        p = Popen(cmd, stdout=PIPE)
         for line in p.stdout.readlines():
-            output.append(line)
+            if str_filter():
+                output.append(line)
     except Exception as e:
         print("Unexpected error: "+e.message)
-    return output
-
-def filter(input, list):
-    """ filter the product, only those containing string in the list will be kept."""
-    
-    output = []
-    for line in input:
-        if "SLP/" in str(line):
-            product = str(line).split('SLP/')[1].split('/')[0]
-            for item in list:
-                if item in product.lower():
-                    output.append(line)
-                    break
     return sorted(output)
 
 def topxe(slplist):
@@ -57,7 +51,8 @@ def topxe(slplist):
                 f.write(pxeitem) 
 
 if __name__ == "__main__":
-    slplist = []
-    slplist = getslpsrv()
-    product = filter(slplist, ['sled', 'server', 'sles', 'desktop'])
-    topxe(product)
+    cmd = ["slptool", "unicastfindsrvs", "147.2.207.1", \
+           "service:install.suse:ftp"]
+    slplist = getslpsrv(cmd, ['desktop','server'])
+    #print(slplist)
+    topxe(slplist)
