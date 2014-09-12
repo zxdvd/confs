@@ -1,31 +1,33 @@
-" syntax highlighting
-syntax on
-" enable number
-set nu
-" highlight current line, column
-set cursorline
+syntax on              " syntax highlighting
+set nu                 " enable number
+
+set cursorline         " highlight current line, column
 set cursorcolumn
 set hlsearch
 
-" enable mouse scroll
-set mouse=a
+set mouse=a            " enable mouse scroll
 
-" tab setting
-set	smartindent
+set	smartindent        " tab setting
 set	tabstop=4
 set	shiftwidth=4
 set	expandtab
 
-" case insensitive
-set ignorecase
+set ignorecase         " case insensitive
 set smartcase
 
-" mutt setting
-" to limit the width of text to 80 characters
-autocmd BufRead /tmp/mutt-* set tw=80
-autocmd BufRead /tmp/mutt-* set spell spelllang=en_us
-" markdown setting
-autocmd BufRead,BufNewFile *.md set filetype=markdown spell spelllang=en_us tw=80
+filetype plugin indent on
+
+augroup autocmds
+    " mutt setting
+    autocmd BufRead /tmp/mutt-* set tw=80
+    autocmd BufRead /tmp/mutt-* set spell spelllang=en_us
+    " markdown setting
+    autocmd BufRead,BufNewFile *.md set filetype=markdown spell spelllang=en_us tw=80
+    autocmd FileType  make setlocal noexpandtab
+    autocmd FileType python highlight Excess ctermbg=red ctermfg=white
+    autocmd FileType python match Excess /\%80v.\+/
+    autocmd FileType python set nowrap tw=80
+augroup END
 
 map ,e :e <C-R>=expand("%:h") . "/" <CR>
 
@@ -34,4 +36,3 @@ cmap w!! w !sudo tee >/dev/null %
 cabbr <expr> %% expand('%:p:h')
 
 " disable expandtab for Makefile,makefile
-autocmd FileType  make setlocal noexpandtab
