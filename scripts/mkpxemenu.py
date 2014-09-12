@@ -26,7 +26,7 @@ def getslpsrv(cmd, filter_out):
 def topxe(slplist):
     """Convert the slp output to a PXE menu. Generate a pxe.menu file in cwd."""
    
-    pattern = re.compile(r'install.suse:((\w+?):.*?dist.install/SLP/((SLE.+?)/.*?)),') 
+    pattern = re.compile(r'install.suse:((\w+?):.*?dist.install/SLP/((SLE.+?)/(i386|x86_64).*?)),') 
     with open('pxe.menu', 'w') as f:
         f.write('default menu.c32\n'
                 'prompt 0\n'\
@@ -36,23 +36,23 @@ def topxe(slplist):
         for line in slplist:
             m = pattern.search(str(line))
             if m:
-                #print(m.group(1,2,3,4))
-                install_url, install_method, path, product = m.group(1,2,3,4)
-                #print(product)
-                loader_path = os.path.join('images', path, 'boot/x86_64/loader/')
+                print(m.group(1,2,3,4))
+                install_url, install_method, path, product, arch = m.group(1,2,3,4,5)
+                #print(product, arch)
+                loader_path = os.path.join('images', path, 'boot', arch, 'loader/')
                 kernel_path = os.path.join(loader_path, 'linux')
                 initrd_path = os.path.join(loader_path, 'initrd')
                 #print(kernel_path, initrd_path)
-                pxeitem = 'LABEL {0}\n' \
-                          '    MENU LABEL {0}\n' \
-                          '    KERNEL {1}\n' \
-                          '    APPEND initrd={2} install={3}\n'.format(product,\
+                pxeitem = 'LABEL {0}-{1}\n' \
+                          '    MENU LABEL {0}-{1}\n' \
+                          '    KERNEL {2}\n' \
+                          '    APPEND initrd={3} install={4}\n'.format(product, arch,\
                                         kernel_path, initrd_path, install_url)
                 f.write(pxeitem) 
 
 if __name__ == "__main__":
     cmd = ["slptool", "unicastfindsrvs", "147.2.207.1", \
            "service:install.suse:ftp"]
-    slplist = getslpsrv(cmd, ['desktop','server'])
-    #print(slplist)
+    slplist = getslpsrv(cmd, ['desktop','server', 'sled', 'sles', 'opensuse'])
+    print(slplist)
     topxe(slplist)

@@ -25,13 +25,14 @@ def getslpsrv(cmd, filter_out=None):
 
 def toslpreg(slplist):
     """Convert the slp output to a PXE menu. Generate a pxe.menu file in cwd."""
-    item = '{0}\n'\
+    item = '{0}'\
            'tcp-port=81\n'\
            'type=server\n\n'
    
     with open('slp.reg', 'w') as f:
         for line in slplist:
-            service = str(line)[2:-3].replace('2.207.1','2.212.204:81',1)
+            print(line)
+            service = line.replace('2.207.1','2.212.204:81',1)
             service = service.replace('65535','en,65535')
             f.write(item.format(service)) 
 
@@ -39,5 +40,5 @@ if __name__ == "__main__":
     cmd = ["slptool", "unicastfindsrvs", "147.2.207.1", \
            "service:install.suse:http"]
     slplist = getslpsrv(cmd, ['sle-12','SLES-11-SP3','sle-11-sp3'])
-    for s in slplist: print(s)
+    #for s in slplist: print(s)
     toslpreg(slplist)
