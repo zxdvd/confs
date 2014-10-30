@@ -4,7 +4,7 @@ import os.path
 from lxml import html
 import requests
 
-def getproduct(archs=['x86_64','i386'],medias=['DVD1','CD1'],flt=['sled',]):
+def getproduct(archs=['x86_64','i386'],medias=['DVD1'],flt=['sled']):
     """Will return a generator of reachable product."""
     base_url = 'http://147.2.207.1/dist/install/SLP/'
     page = requests.get(base_url)
@@ -21,10 +21,13 @@ def getproduct(archs=['x86_64','i386'],medias=['DVD1','CD1'],flt=['sled',]):
     for url in urls:
         prod, arch, media = url
         if any(s in prod.lower() for s in flt):
-            url = base_url + prod + arch + '/' + media + '/'
+            rel_url = os.path.join(prod, arch, media, 'boot', arch, 'loader/')
+            url = base_url + rel_url
             r = requests.head(url)
             if r.status_code == requests.codes.ok:
-                yield url, prod[:-1], arch, media
+                label = prod[:-1] + '-' + arch + '-' + media
+                print(url)
+                yield label, url
 
 def topxe(urls):
     """Convert the slp output to a PXE menu. Generate a pxe.menu file in cwd."""
@@ -35,16 +38,16 @@ def topxe(urls):
                 'timeout 300\n'
                 'ONTIMEOUT local\n')
 
-        for url, prod, arch, media in urls:
+        for label, url in urls:
             if 'SLP/' in url:
-                ploader = os.path.join('images', prod, arch, media, 'boot',
-                                       arch, 'loader/')
-                label = prod + '-' + arch
+                rel_path = url.split('SLP/')[1]
+                ploader = os.path.join('images', rel_path)
+                repo = url.split('/boot/')[0]
                 pxeitem = 'LABEL {0}\n' \
                           '    MENU LABEL {0}\n' \
                           '    KERNEL {1}linux\n' \
                           '    APPEND initrd={1}initrd install={2}\n'.format(
-                                  label, ploader, url)
+                                  label, ploader, repo)
                 f.write(pxeitem) 
 
 if __name__ == '__main__':
