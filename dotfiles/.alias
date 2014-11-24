@@ -19,5 +19,5 @@ alias f='pushd -0'
 
 alias cp='rsync -avhP'
 
-alias openqa-web='/usr/bin/perl -w  /usr/share/openqa/script/openqa daemon -m development'
-alias openqa-work='worker --host localhost:9526 --instance 1 --verbose'
+alias openqa-web='/usr/bin/perl -w  /usr/share/openqa/script/openqa daemon -m development --proxy'
+alias openqa-work='/usr/bin/perl -w /usr/share/openqa/script/worker  --instance 1 --verbose'
