@@ -1,6 +1,8 @@
 [user]
 	email = xdzhang@suse.com
 	name = Xudong Zhang
+[core]
+    fileMode = false
 [credential]
 	helper = cache --timeout=3600
 [alias]

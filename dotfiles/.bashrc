@@ -14,3 +14,16 @@ export EDITOR=/usr/bin/vim
 HISTSIZE=10000
 
 test -s ~/.alias && . ~/.alias || true
+
+export JAVA_HOME=/usr/lib64/jvm/java
+export SCALA_HOME=/opt/scala
+export PATH=$PATH:/opt/scala/bin
+
+[[ -d ~/logssh ]] || mkdir ~/logssh
+function logssh() {
+    logfile=$*
+    logfile=${logfile##*@}              #get substring after last @
+    logfile=${logfile%% *}              #get substring before first whitespace
+    logfile="${logfile}_$(date +'%F_%R')"
+    ssh $* 2>&1 | tee ~/logssh/${logfile}.log
+}
