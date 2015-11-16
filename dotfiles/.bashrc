@@ -11,13 +11,16 @@ export EDITOR=/usr/bin/vim
 # For some news readers it makes sense to specify the NEWSSERVER variable here
 #export NEWSSERVER=your.news.server
 
-HISTSIZE=10000
+export HISTCONTROL=ignoredups:erasedups
+export HISTSIZE=100000
+export HISTFILESIZE=100000
+shopt -s histappend                     #append to history
+# Save and reload the history after each command finishes, works for multiple sessions
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 test -s ~/.alias && . ~/.alias || true
 
 export JAVA_HOME=/usr/lib64/jvm/java
-export SCALA_HOME=/opt/scala
-export PATH=$PATH:/opt/scala/bin
 
 [[ -d ~/logssh ]] || mkdir ~/logssh
 function logssh() {
